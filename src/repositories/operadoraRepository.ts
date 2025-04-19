@@ -2,22 +2,55 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export const createOperadora = async (data: { nome: string }) => {
-  return prisma.operadora.create({ data });
+export const createOperadora = async (data: { cpf: string, nome: string, email: string, telefone: string }) => {
+  try {
+    const medico = await prisma.medico.create({
+      data,
+    });
+    return medico;
+  } catch (error) {
+    throw new Error('Erro ao criar medico: ' + error);
+  }
 };
 
-export const getAllOperadoras = async () => {
-  return prisma.operadora.findMany();
+export const getAllMedicos = async () => {
+  try {
+    const medicos = await prisma.medico.findMany();
+    return medicos;
+  } catch (error) {
+    throw new Error('Erro ao buscar medicos: ' + error);
+  }
 };
 
-export const getOperadoraById = async (id: number) => {
-  return prisma.operadora.findUnique({ where: { id } });
+export const getMedicoById = async (id: number) => {
+  try {
+    const medico = await prisma.medico.findUnique({
+      where: { id },
+    });
+    return medico;
+  } catch (error) {
+    throw new Error('Erro ao buscar medico: ' + error);
+  }
 };
 
-export const updateOperadora = async (id: number, data: { nome?: string }) => {
-  return prisma.operadora.update({ where: { id }, data });
+export const updateMedico = async (id: number, data: { cpf?: string, nome?: string, email?: string, telefone?: string }) => {
+  try {
+    const medico = await prisma.medico.update({
+      where: { id },
+      data,
+    });
+    return medico;
+  } catch (error) {
+    throw new Error('Erro ao atualizar medico: ' + error);
+  }
 };
 
-export const deleteOperadora = async (id: number) => {
-  return prisma.operadora.delete({ where: { id } });
+export const deleteMedico = async (id: number) => {
+  try {
+    await prisma.medico.delete({
+      where: { id },
+    });
+  } catch (error) {
+    throw new Error('Erro ao deletar medico: ' + error);
+  }
 };

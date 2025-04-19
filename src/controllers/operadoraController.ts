@@ -3,8 +3,8 @@ import * as operadoraRepository from '../repositories/operadoraRepository';
 
 export const criarOperadora = async (req: Request, res: Response) => {
   try {
-    const { nome, registroAns } = req.body;
-    const novaOperadora = await operadoraRepository.createOperadora({ nome, registroAns });
+    const { nome, empresaId } = req.body;
+    const novaOperadora = await operadoraRepository.createOperadora({ nome, empresaId });
     return res.status(201).json(novaOperadora);
   } catch (error) {
     return res.status(500).json({ erro: (error as Error).message });

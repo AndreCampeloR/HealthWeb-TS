@@ -3,8 +3,8 @@ import * as medicoRepository from '../repositories/medicoRepository';
 
 export const criarMedico = async (req: Request, res: Response) => {
   try {
-    const { nome, crm, especialidade } = req.body;
-    const novoMedico = await medicoRepository.createMedico({ nome, crm, especialidade });
+    const { nome, email, telefone, cpf } = req.body;
+    const novoMedico = await medicoRepository.createMedico({ nome, email, telefone, cpf });
     return res.status(201).json(novoMedico);
   } catch (error) {
     return res.status(500).json({ erro: (error as Error).message });
