@@ -2,55 +2,55 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export const createOperadora = async (data: { cpf: string, nome: string, email: string, telefone: string }) => {
+export const createOperadora = async (data: { nome: string, empresaId: number }) => {
   try {
-    const medico = await prisma.medico.create({
+    const operadora = await prisma.operadora.create({
       data,
     });
-    return medico;
+    return operadora;
   } catch (error) {
-    throw new Error('Erro ao criar medico: ' + error);
+    throw new Error('Erro ao criar operadora: ' + error);
   }
 };
 
-export const getAllMedicos = async () => {
+export const getAllOperadoras = async () => {
   try {
-    const medicos = await prisma.medico.findMany();
-    return medicos;
+    const operadora = await prisma.operadora.findMany();
+    return operadora;
   } catch (error) {
-    throw new Error('Erro ao buscar medicos: ' + error);
+    throw new Error('Erro ao buscar operadoras: ' + error);
   }
 };
 
-export const getMedicoById = async (id: number) => {
+export const getOperadoraById = async (id: number) => {
   try {
-    const medico = await prisma.medico.findUnique({
+    const operadora = await prisma.operadora.findUnique({
       where: { id },
     });
-    return medico;
+    return operadora;
   } catch (error) {
-    throw new Error('Erro ao buscar medico: ' + error);
+    throw new Error('Erro ao buscar operadora: ' + error);
   }
 };
 
-export const updateMedico = async (id: number, data: { cpf?: string, nome?: string, email?: string, telefone?: string }) => {
+export const updateOperadora = async (id: number, data: { nome?: string, empresaId?: number }) => {
   try {
-    const medico = await prisma.medico.update({
+    const operadora = await prisma.operadora.update({
       where: { id },
       data,
     });
-    return medico;
+    return operadora;
   } catch (error) {
-    throw new Error('Erro ao atualizar medico: ' + error);
+    throw new Error('Erro ao atualizar operadora: ' + error);
   }
 };
 
-export const deleteMedico = async (id: number) => {
+export const deleteOperadora = async (id: number) => {
   try {
-    await prisma.medico.delete({
+    await prisma.operadora.delete({
       where: { id },
     });
   } catch (error) {
-    throw new Error('Erro ao deletar medico: ' + error);
+    throw new Error('Erro ao deletar operadora: ' + error);
   }
 };
